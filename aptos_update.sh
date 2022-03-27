@@ -1,11 +1,6 @@
 #!/bin/bash
-echo "=================================================="
+
 curl -s https://raw.githubusercontent.com/cryptongithub/init/main/logo.sh | bash && sleep 2
-echo "=================================================="
-
-sleep 2
-
-echo -e "\e[1m\e[32m1. Stopping the FullNode \e[0m" && sleep 1
 
 cd $HOME/aptos
 sudo docker compose down -v
@@ -13,7 +8,7 @@ sudo docker pull aptoslab/validator:devnet
 
 echo "=================================================="
 
-echo -e "\e[1m\e[32m2. Downloading new genesis and waypoint configs \e[0m" && sleep 1
+echo -e "\e[1m\e[32m2. Downloading \e[0m" && sleep 1
 
 rm $HOME/aptos/genesis.blob
 wget -P $HOME/aptos https://devnet.aptoslabs.com/genesis.blob
