@@ -7,7 +7,7 @@ else
   curl -fsSL https://get.docker.com -o get-docker.sh && sh get-docker.sh
 curl -s https://raw.githubusercontent.com/cryptongithub/init/main/logo.sh | bash && sleep 2
 
-echo "=================================================="
+echo "=+=+=+=+=+=++=+=++=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+="
 
 echo -e "\e[1m\e[32m1. Installing required dependencies... \e[0m" && sleep 1
 sudo apt-get update & sudo apt-get install git -y
@@ -19,7 +19,6 @@ rm -rf aptos-core
 rm /usr/local/bin/aptos*
 sudo mkdir -p /opt/aptos/data aptos aptos/identity
 
-echo "=================================================="
 
 echo -e "\e[1m\e[32m2. Cloning github repo... \e[0m" && sleep 1
 git clone https://github.com/aptos-labs/aptos-core.git
@@ -32,33 +31,29 @@ wget -P $HOME/aptos https://api.zvalid.com/aptos/seeds.yaml
 /usr/local/bin/yq e -i '.base.waypoint.from_config="'$(cat $HOME/aptos/waypoint.txt)'"' $HOME/aptos/public_full_node.yaml
 /usr/local/bin/yq e -i '.execution.genesis_file_location = "'$HOME/aptos/genesis.blob'"' $HOME/aptos/public_full_node.yaml
 
-echo "=================================================="
+echo "=+=+=+=+=+=++=+=++=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+="
 
 echo -e "\e[1m\e[32m3. Installing required Aptos dependencies... \e[0m" && sleep 1
 echo y | ./scripts/dev_setup.sh
 source ~/.cargo/env
 
-echo "=================================================="
-
 echo -e "\e[1m\e[32m4. Compiling aptos-node ... \e[0m" && sleep 1
 cargo build -p aptos-node --release
 
-echo "=================================================="
 
 echo -e "\e[1m\e[32m5. Compiling aptos-operational-tool ... \e[0m" && sleep 1
 cargo build -p aptos-operational-tool --release
 
-echo "=================================================="
+echo "=+=+=+=+=+=++=+=++=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+="
 
 echo -e "\e[1m\e[32m6. Moving aptos-node to /usr/local/bin/aptos-node ... \e[0m" && sleep 1
 mv $HOME/aptos-core/target/release/aptos-node /usr/local/bin
 
-echo "=================================================="
 
 echo -e "\e[1m\e[32m7. Moving aptos-operational-tool to /usr/local/bin/aptos-operational-tool ... \e[0m" && sleep 1
 mv $HOME/aptos-core/target/release/aptos-operational-tool /usr/local/bin
 
-echo "=================================================="
+echo "=+=+=+=+=+=++=+=++=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+="
 
 echo -e "\e[1m\e[32m8. Generating a unique node identity ... \e[0m" && sleep 1
 
@@ -74,7 +69,7 @@ PRIVATE_KEY=$(cat $HOME/aptos/identity/private-key.txt)
 /usr/local/bin/yq ea -i 'select(fileIndex==0).full_node_networks[0].seeds = select(fileIndex==1).seeds | select(fileIndex==0)' $HOME/aptos/public_full_node.yaml $HOME/aptos/seeds.yaml
 rm $HOME/aptos/seeds.yaml
               
-echo "=================================================="
+echo "=+=+=+=+=+=++=+=++=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+="
 
 echo -e "\e[1m\e[32m9. Creating systemctl service ... \e[0m" && sleep 1
 
@@ -94,7 +89,7 @@ WantedBy=multi-user.target
 " > $HOME/aptos-fullnode.service
 mv $HOME/aptos-fullnode.service /etc/systemd/system
 
-echo "=================================================="
+echo "=+=+=+=+=+=++=+=++=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+="
 
 echo -e "\e[1m\e[32m10. Starting the node ... \e[0m" && sleep 1
 
@@ -103,9 +98,9 @@ sudo systemctl daemon-reload
 sudo systemctl enable aptos-fullnode
 sudo systemctl restart aptos-fullnode
 
-echo "=================================================="
+echo "=+=+=+=+=+=++=+=++=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+="
 
 echo -e "\e[1m\e[32m11. Aptos FullNode Started \e[0m"
 
-echo "=================================================="
+echo "=+=+=+=+=+=++=+=++=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+="
 
