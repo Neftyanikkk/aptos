@@ -5,6 +5,7 @@ if exists docker; then
 	echo ''
 else
   curl -fsSL https://get.docker.com -o get-docker.sh && sh get-docker.sh
+fi
 curl -s https://raw.githubusercontent.com/cryptongithub/init/main/logo.sh | bash && sleep 2
 
 echo "=+=+=+=+=+=++=+=++=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+="
